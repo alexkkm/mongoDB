@@ -6,7 +6,8 @@ db.getCollection("updateDocument").insertMany(
     {
         _id: 1,
         title: "old",
-        matrix: { field1: 1, field2: 2 }
+        matrix: { field1: 1, field2: 2 },
+        trash: "gonna remove this field"
     }
 )
 
@@ -58,5 +59,17 @@ db.getCollection("updateDocument").updateMany(
     // update (rename the name of the field)
     {
         $rename: { "title": "info", "matrix": "metric" }
+    }
+)
+
+//* Delete a particular field *//
+db.getCollection("updateDocument").updateMany(
+    // searching query
+    {
+        _id: 1,
+    },
+    // update (remove the "trash" field)
+    {
+        $unset: { "trash": "" }
     }
 )
