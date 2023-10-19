@@ -1,21 +1,24 @@
 // Select the database "Tutorial"
 use("Tutorial")
 
-// Insert a docuemt with "_id": 1, with field "value": 999
-db.getCollection("updateDocument").insert(
+// Insert a docuemt with "_id": 1, with field "title": "old"
+db.getCollection("updateDocument").insertMany(
     {
         _id: 1,
-        value: 999
+        title: "old",
+        matrix: { field1: 1, field2: 2 }
     }
-)   // if the collection already exist document with "_id": 1, then will update its "value" with 999
+)
 
-// Update the document in collection "updateDocument", whose "title" value is "old", with the new vlaue
+//* Normal Update *//
+
+// Update the document in collection "updateDocument", whose "title" value is "old", with the new value "new"
 db.getCollection("updateDocument").updateMany(
-    // old content
+    // searching query
     {
         title: "old"
     },
-    // new content
+    // update (set the value of "title" by "new")
     {
         $set: { title: "new" }
     }
@@ -23,21 +26,37 @@ db.getCollection("updateDocument").updateMany(
 //* alternative
 /*
 db.updateDocument.updateMany(
-    // old content
+     // searching query
     {
         title: "old"
     },
-    // new content
+    // update (set the value of "title" by "new")
     {
         $set: { title: "new" }
     }
 )
 */
 
-// You can use insert() for updating the content of document with specific "_id"
-db.getCollection("updateDocument").insert(
+//* Update with increment *//
+db.getCollection("updateDocument").updateMany(
+    // searching query
     {
         _id: 1,
-        info: "new content",
+    },
+    // update (increase the value of "matrix.field1" by 1, decrease the value of "matrix.field2" by 2)
+    {
+        $inc: { "matrix.field1": 1, "matrix.field2": -2 }
+    }
+)
+
+//* Rename the name of the fields *//
+db.getCollection("updateDocument").updateMany(
+    // searching query
+    {
+        _id: 1,
+    },
+    // update (rename the name of the field)
+    {
+        $rename: { "title": "info", "matrix": "metric" }
     }
 )
