@@ -1,6 +1,8 @@
 // type '''node API.js''' in the terminal to use this file
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+
+// This is the uri for the mongoDB Database
 const uri = "mongodb+srv://alexkong0222:alexkong0222@cluster0.qpf52os.mongodb.net/?retryWrites=true&w=majority";
 
 async function run() {
