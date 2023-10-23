@@ -14,10 +14,16 @@ async function run() {
             deprecationErrors: true,
         }
     });
-    try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
 
+    // Connect the client to the server	(optional starting in v4.7)
+    try {
+        await client.connect();
+        console.log("Successfully connect to the mongoDB database.\n")
+    } catch (err) {
+        console.error(`Something went wrong on connection: ${err}\n`);
+    }
+
+    try {
         // Provide the name of the database and collection you want to use.
         // If the database and/or collection do not exist, the driver and Atlas
         // will create them automatically when you first write data.
