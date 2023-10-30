@@ -5,6 +5,8 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 // This is the uri for the mongoDB Database
 const uri = "mongodb+srv://alexkong0222:alexkong0222@cluster0.qpf52os.mongodb.net/?retryWrites=true&w=majority";
 
+console.log("Start of connection.js");
+
 async function run() {
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
     const client = new MongoClient(uri, {
@@ -14,10 +16,16 @@ async function run() {
             deprecationErrors: true,
         }
     });
-    try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
 
+    // Connect the client to the server	(optional starting in v4.7)
+    try {
+        await client.connect();
+        console.log("Successfully connect to the mongoDB database.\n")
+    } catch (err) {
+        console.error(`Something went wrong on connection: ${err}\n`);
+    }
+
+    try {
         // Provide the name of the database and collection you want to use.
         // If the database and/or collection do not exist, the driver and Atlas
         // will create them automatically when you first write data.
