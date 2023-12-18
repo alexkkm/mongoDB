@@ -1,5 +1,7 @@
-// To connect with your mongoDB database
+
 const mongoose = require('mongoose');
+
+// To connect with mongoDB database with dbName: "Test"
 try {
     mongoose.connect('mongodb+srv://alexkong0222:alexkong0222@cluster0.qpf52os.mongodb.net/?retryWrites=true&w=majority', {
         dbName: 'Test',
@@ -12,7 +14,7 @@ catch (error) {
     console.log(error)
 }
 
-// Schema for users of app
+// Schema for User
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -28,6 +30,8 @@ const UserSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
+// create the model 'users', with applying the schema 'UserSchema' into it
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
 
@@ -65,4 +69,15 @@ app.post("/register", async (req, resp) => {
         resp.send("Something Went Wrong");
     }
 });
+
+app.get("/search", async (req, res) => {
+    try {
+        const result = await User.find({ $text: { $search: { name: req.query } } })
+        res.send(result);
+    } catch (err) {
+        res.send("Something went wrong")
+    }
+})
+
+
 app.listen(5000);
