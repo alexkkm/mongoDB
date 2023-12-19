@@ -21,7 +21,7 @@ function App() {
     }
   }
   return (
-    <>
+    <div>
       <h1>This is React WebApp </h1>
       <form action="">
         <input type="text" placeholder="name"
@@ -32,7 +32,7 @@ function App() {
           onClick={handleOnSubmit}>submit</button>
       </form>
 
-    </>
+    </div>
   );
 }
 
