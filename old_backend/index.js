@@ -28,8 +28,12 @@ const UserSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
+// Creating a model "User" based on the schema "UserSchema"
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
+
+
 
 // For backend and express
 const express = require('express');
@@ -48,7 +52,8 @@ app.get("/", (req, resp) => {
     // backend working properly
 });
 
-app.post("/register", async (req, resp) => {
+// add new user
+app.post("/addNewUser", async (req, resp) => {
     try {
         const user = new User(req.body);
         let result = await user.save();
@@ -64,5 +69,12 @@ app.post("/register", async (req, resp) => {
     } catch (e) {
         resp.send("Something Went Wrong");
     }
+});
+
+//Get all user
+app.get('/getUsers', (request, response) => {
+    User.find()
+        .then(data => response.json(data))
+        .catch(error => response.json(error))
 });
 app.listen(5000);
