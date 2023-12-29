@@ -67,7 +67,8 @@ app.post("/addNewUser", async (req, resp) => {
         }
 
     } catch (e) {
-        resp.send("Something Went Wrong");
+        console.log("Error: " + e);
+        resp.send("Error: " + e);
     }
 });
 
