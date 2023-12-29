@@ -73,7 +73,7 @@ app.post("/addNewUser", async (req, resp) => {
 });
 
 //Get all user
-app.get('/getUsers', (request, response) => {
+app.get('/getAllUsers', (request, response) => {
     User.find()
         .then(data => response.json(data))
         .catch(error => response.json(error))

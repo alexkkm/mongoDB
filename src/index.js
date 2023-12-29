@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AddNewUserPage from './AddUserPage';
+import GetAllUserPage from './GetAllUserPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
         <Route path="/index" Component={<App />} />
         <Route path="/home" element={<App />} />
         <Route path="/addNewUser" element={<AddNewUserPage />} />
+        <Route path="/getUser" element={<GetAllUserPage />} />
 
       </Routes>
     </BrowserRouter>
