@@ -75,7 +75,11 @@ app.post("/addNewUser", async (req, resp) => {
 //Get all user
 app.get('/getAllUsers', (request, response) => {
     User.find()
-        .then(data => response.json(data))
-        .catch(error => response.json(error))
+        .then(data => {
+            console.log("return:");
+            console.log(data)
+            response.send(data)
+        })
+        .catch(error => response.send(error))
 });
 app.listen(5000);

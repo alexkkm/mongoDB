@@ -34,6 +34,7 @@ function App() {
           onClick={handleOnSubmit}>submit</button>
       </form>
 
+      <a href='localhost:3000/getUser'>get</a>
     </div>
   );
 }

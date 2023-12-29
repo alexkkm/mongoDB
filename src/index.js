@@ -18,7 +18,7 @@ root.render(
         <Route path="/index" Component={<App />} />
         <Route path="/home" element={<App />} />
         <Route path="/addNewUser" element={<AddNewUserPage />} />
-        <Route path="/getUser" element={<GetAllUserPage />} />
+        <Route path="/getUsers" element={<GetAllUserPage />} />
 
       </Routes>
     </BrowserRouter>
