@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { getAPI } from './QueryAPI';
+import { searchUserAPI } from './QueryAPI';
 
+// Page for getting all user data in the db
 function GetAllUserPage() {
     const [content, setContent] = useState("");
 
     useEffect(() => {
         const callAPI = async () => {
-            const result = await getAPI('http://localhost:5000/getAllUsers').catch((error) => {
+            const result = await searchUserAPI('http://localhost:5000/getAllUsers').catch((error) => {
                 console.log(error)
             }).then(console.log("Successfully get data from URL"))
 

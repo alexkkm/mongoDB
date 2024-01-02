@@ -35,6 +35,7 @@ export default class App extends React.Component {
           <p>Functions implemented:</p>
           <NavigationButton url="./addNewUser" title="Add New User" />
           <NavigationButton url="./getUsers" title="Get User" />
+          <NavigationButton url="./searchUser" title="Search User" />
         </header>
       </div>
     );

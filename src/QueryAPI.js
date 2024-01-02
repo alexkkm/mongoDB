@@ -1,4 +1,5 @@
-export const getAPI = async (url) => {
+// Function for calling fetchAPI for searching user data in db
+export const searchUserAPI = async (url) => {
     let result = await fetch(
         url,
         {

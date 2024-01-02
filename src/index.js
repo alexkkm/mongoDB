@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import AddNewUserPage from './AddUserPage';
 import GetAllUserPage from './GetAllUserPage';
+import SearchUserPage from './SearchUser';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,6 +20,7 @@ root.render(
         <Route path="/home" element={<App />} />
         <Route path="/addNewUser" element={<AddNewUserPage />} />
         <Route path="/getUsers" element={<GetAllUserPage />} />
+        <Route path="/searchUser" element={<SearchUserPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

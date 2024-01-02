@@ -76,10 +76,22 @@ app.post("/addNewUser", async (req, resp) => {
 app.get('/getAllUsers', (request, response) => {
     User.find()
         .then(data => {
-            console.log("return:");
+            console.log("Successfully fetch from DB:");
             console.log(data)
             response.send(data)
         })
         .catch(error => response.send(error))
 });
+
+// Search user with query
+app.get('/searchUser/:name', (request, response) => {
+    User.find({ name: request.params.name })
+        .then(data => {
+            console.log("Successfully fetch from DB:");
+            console.log(data)
+            response.send(data)
+        })
+        .catch(error => response.send(error))
+})
+
 app.listen(5000);

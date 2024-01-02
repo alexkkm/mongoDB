@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// Page for adding new user into db
 function AddNewUserPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
