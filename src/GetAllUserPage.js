@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react'
+import { getAPI } from './QueryAPI';
 
 function GetAllUserPage() {
     const [content, setContent] = useState("");
 
-    useEffect(() => async function () {
-        let result = await fetch(
-            'http://localhost:5000/getAllUsers', {
-            method: "get",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        result = await result.json();
-        console.log("result:")
-        console.log(result);
-        if (result) {
+    useEffect(() => {
+        const callAPI = async () => {
+            const result = await getAPI('http://localhost:5000/getAllUsers').catch((error) => {
+                console.log(error)
+            }).then(console.log("Successfully get data from URL"))
+
             setContent(result)
         }
-    })
+        callAPI();
+    }, [])
+
     return (
         <div>
             <h1>Get User</h1>
