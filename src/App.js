@@ -1,79 +1,42 @@
-import { useState } from 'react'
+// Basic tools
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
+// Button for navigation
+function NavigationButton(props) {
 
-function App() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    let result = await fetch(
-      'http://localhost:5000/addNewUser', {
-      method: "post",
-      body: JSON.stringify({ name, email }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    result = await result.json();
-    console.warn(result);
-    if (result) {
-      alert("Data saved succesfully");
-      setEmail("");
-      setName("");
-    }
+  //parameters for setting the route
+  const url = props.url;  //define the url of routing destination
+  const title = props.title;  //define the title of the button
+  const data = props.data;  //the data passing to the destination page
+
+  //please follow the below code strictly
+  const navigate = useNavigate();
+
+  const route = () => {
+    navigate(url, { state: { id: 1, data: data } });
   }
+
   return (
     <div>
-      <h1>This is React WebApp </h1>
-      <form action="">
-        <input type="text" placeholder="name"
-          value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="email"
-          value={email} onChange={(e) => setEmail(e.target.value)} />
-        <button type="submit"
-          onClick={handleOnSubmit}>submit</button>
-      </form>
-
-      <a href='localhost:3000/getUser'>get</a>
+      <button onClick={() => { route() }}>{title}</button>
     </div>
   );
 }
 
-function AddNewUserPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    let result = await fetch(
-      'http://localhost:5000/addNewUser', {
-      method: "post",
-      body: JSON.stringify({ name, email }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    result = await result.json();
-    console.warn(result);
-    if (result) {
-      alert("Data saved succesfully");
-      setEmail("");
-      setName("");
-    }
+// Home Page of the app
+export default class App extends React.Component {
+  render() {
+    return (
+      <div className="Home">
+        <header className="Home-header">
+          <h2>Home Page</h2>
+
+          <p>Functions implemented:</p>
+          <NavigationButton url="./addNewUser" title="Add New User" />
+          <NavigationButton url="./getUsers" title="Get User" />
+        </header>
+      </div>
+    );
   }
-  return (
-    <div>
-      <h1>This is React WebApp </h1>
-      <form action="">
-        <input type="text" placeholder="name"
-          value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="email"
-          value={email} onChange={(e) => setEmail(e.target.value)} />
-        <button type="submit"
-          onClick={handleOnSubmit}>submit</button>
-      </form>
-
-    </div>
-  );
 }
-
-export default App;

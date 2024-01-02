@@ -19,7 +19,6 @@ root.render(
         <Route path="/home" element={<App />} />
         <Route path="/addNewUser" element={<AddNewUserPage />} />
         <Route path="/getUsers" element={<GetAllUserPage />} />
-
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
