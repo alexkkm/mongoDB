@@ -7,6 +7,8 @@ import App from './App';
 import AddNewUserPage from './AddUserPage';
 import GetAllUserPage from './GetAllUserPage';
 import SearchUserPage from './SearchUser';
+import DeleteUserPage from './DeleteUserPage';
+import EditUserPage from './EditUserPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +23,8 @@ root.render(
         <Route path="/addNewUser" element={<AddNewUserPage />} />
         <Route path="/getUsers" element={<GetAllUserPage />} />
         <Route path="/searchUser" element={<SearchUserPage />} />
+        <Route path="/deleteUser" element={<DeleteUserPage />} />
+        <Route path="/editUser" element={<EditUserPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

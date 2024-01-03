@@ -53,14 +53,14 @@ app.get("/", (req, resp) => {
 });
 
 // add new user
-app.post("/addNewUser", async (req, resp) => {
+app.post("/addNewUser", async (request, response) => {
     try {
-        const user = new User(req.body);
+        const user = new User(request.body);
         let result = await user.save();
         result = result.toObject();
         if (result) {
-            delete result.password;
-            resp.send(req.body);
+            delete result.password; // dont know if it is useful
+            response.send(request.body);
             console.log(result);
         } else {
             console.log("User already register");
@@ -68,7 +68,7 @@ app.post("/addNewUser", async (req, resp) => {
 
     } catch (e) {
         console.log("Error: " + e);
-        resp.send("Error: " + e);
+        response.send("Error: " + e);
     }
 });
 
@@ -83,11 +83,22 @@ app.get('/getAllUsers', (request, response) => {
         .catch(error => response.send(error))
 });
 
-// Search user with query
+// Search user by 'name' query
 app.get('/searchUser/:name', (request, response) => {
     User.find({ name: request.params.name })
         .then(data => {
             console.log("Successfully fetch from DB:");
+            console.log(data)
+            response.send(data)
+        })
+        .catch(error => response.send(error))
+})
+
+// Delete user by 'name' query
+app.delete('/deleteUser/:name', (request, response) => {
+    User.findByIdAndDelete({ name: request.params.name })
+        .then(data => {
+            console.log("Successfully delete" + request.params.name + " from DB:");
             console.log(data)
             response.send(data)
         })

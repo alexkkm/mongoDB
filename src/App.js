@@ -36,6 +36,9 @@ export default class App extends React.Component {
           <NavigationButton url="./addNewUser" title="Add New User" />
           <NavigationButton url="./getUsers" title="Get User" />
           <NavigationButton url="./searchUser" title="Search User" />
+          <NavigationButton url="./editUser" title="Edit User" />
+          <NavigationButton url="./deleteUser" title="Delete User" />
+
         </header>
       </div>
     );
