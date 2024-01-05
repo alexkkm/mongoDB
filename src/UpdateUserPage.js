@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { searchUserAPI } from './QueryAPI';
 
-function DeleteUserPage() {
+function UpdateUserPage() {
     const [query, setQuery] = useState("");
     const [content, setContent] = useState("");
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
+    const [newContent, setNewContent] = useState("");
 
     const handleOnSearch = async (e) => {
         e.preventDefault();
@@ -17,12 +18,12 @@ function DeleteUserPage() {
         setName(resultName)
     }
 
-    const handleOnDelete = async (e) => {
+    const handleOnUpdate = async (e) => {
         e.preventDefault();
         let result = await fetch(
-            'http://localhost:5000/deleteUser/' + name, {
-            method: "delete",
-            body: JSON.stringify({ name }),
+            'http://localhost:5000/updateUser/' + name, {
+            method: "patch",
+            body: newContent,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -45,13 +46,20 @@ function DeleteUserPage() {
             </form>
             <p>{JSON.stringify(content)}</p>
             <p>{name}</p>
+
+            <form action="">
+                <input type="text" placeholder="query"
+                    value={query} onChange={(e) => setQuery(e.target.value)} />
+                <button type="submit"
+                    onClick={handleOnSearch}>submit</button>
+            </form>
             <button type="submit"
-                onClick={handleOnDelete}>submit</button>
+                onClick={handleOnUpdate}>submit</button>
         </div>
     );
 }
 
-export default DeleteUserPage;
+export default UpdateUserPage;
 
 function handleJSON(json) {
     const jsonObject = JSON.parse(json);

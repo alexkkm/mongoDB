@@ -96,9 +96,21 @@ app.get('/searchUser/:name', (request, response) => {
 
 // Delete user by 'name' query
 app.delete('/deleteUser/:name', (request, response) => {
-    User.findByIdAndDelete({ name: request.params.name })
+    User.findOneAndDelete({ name: request.params.name })
         .then(data => {
-            console.log("Successfully delete" + request.params.name + " from DB:");
+            console.log("Successfully delete " + request.params.name + " from DB:");
+            console.log(data)
+            response.send(data)
+        })
+        .catch(error => response.send(error))
+})
+
+//TODO
+// Update user that searched by 'name' query
+app.patch('/updateUser/:name', (request, response) => {
+    User.findOneAndUpdate({ name: request.params.name }, request.body)
+        .then(data => {
+            console.log("Successfully update " + request.params.name + " from DB:");
             console.log(data)
             response.send(data)
         })
