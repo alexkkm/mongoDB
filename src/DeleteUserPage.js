@@ -4,33 +4,47 @@ import { searchUserAPI } from './QueryAPI';
 function DeleteUserPage() {
     const [query, setQuery] = useState("");
     const [content, setContent] = useState("");
-    const [name, setName] = useState('');
+    const [deleteName, setDeleteName] = useState('');
+    const [deleteEmail, setDeleteEmail] = useState('');
 
     const handleOnSearch = async (e) => {
         e.preventDefault();
-        const result = await searchUserAPI('http://localhost:5000/searchUser/' + query).catch((error) => {
-            console.log(error)
-        }).then(console.log("Successfully get data from URL"))
-        setContent(result)
 
-        const resultName = result[1].name
-        setName(resultName)
+        //TODO: Optimize the catch then logic, remove result flag
+        var result;
+        // search for the user in the database
+        const response = await searchUserAPI('http://localhost:5000/searchUser/' + query).catch((error) => {
+            console.log(error)
+        }).then(result = true, result = false)
+
+        if (result) {
+            console.log("Successfully get data from URL");
+            // if successfully get the data, save the response as "content"
+            setContent(response)
+            // update the "deleteName" by the serching response
+            setDeleteName(response[0].name)
+            // update the "deleteName" by the serching response
+            setDeleteEmail(response[0].email)
+        }
     }
+
+
+
 
     const handleOnDelete = async (e) => {
         e.preventDefault();
-        let result = await fetch(
-            'http://localhost:5000/deleteUser/' + name, {
+        let response = await fetch(
+            'http://localhost:5000/deleteUser/' + deleteName, {
             method: "delete",
-            body: JSON.stringify({ name }),
+            body: JSON.stringify({ deleteName }),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        result = await result.json();
-        console.warn(result);
-        if (result) {
-            alert(result)
+        response = await response.json();
+        console.warn(response);
+        if (response) {
+            alert(JSON.stringify(response))
         }
     }
 
@@ -44,16 +58,13 @@ function DeleteUserPage() {
                     onClick={handleOnSearch}>submit</button>
             </form>
             <p>{JSON.stringify(content)}</p>
-            <p>{name}</p>
+            <p>The user that you gonna delete:</p>
+            <p>{deleteName}</p>
+            <p>{deleteEmail}</p>
             <button type="submit"
-                onClick={handleOnDelete}>submit</button>
+                onClick={handleOnDelete}>delete</button>
         </div>
     );
 }
 
 export default DeleteUserPage;
-
-function handleJSON(json) {
-    const jsonObject = JSON.parse(json);
-    console.log(jsonObject)
-}
